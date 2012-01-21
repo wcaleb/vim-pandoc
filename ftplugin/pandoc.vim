@@ -97,10 +97,11 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " # Autocomplete citationkeys using function
 "
-call pandoc#Pandoc_Find_Bibfile()
-
-let s:completion_type = ""
-setlocal omnifunc=pandoc#Pandoc_Complete
+if has("python")
+    call pandoc#Pandoc_Find_Bibfile()
+    let s:completion_type = ""
+    setlocal omnifunc=pandoc#Pandoc_Complete
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " # Supertab support
@@ -127,14 +128,15 @@ endif
 " Markdown tidy with hard wraps
 " (Note: this will insert an empty title block if no title block 
 " is present; it will wipe out any latex macro definitions)
+if !exists("g:pandoc_no_external_commands") || !g:pandoc_no_external_commands
 
-command! -buffer MarkdownTidyWrap %!pandoc -t markdown -s
+    command! -buffer MarkdownTidyWrap %!pandoc -t markdown -s
 
 " Markdown tidy without hard wraps
 " (Note: this will insert an empty title block if no title block 
 " is present; it will wipe out any latex macro definitions)
 
-command! -buffer MarkdownTidy %!pandoc -t markdown --no-wrap -s
+    command! -buffer MarkdownTidy %!pandoc -t markdown --no-wrap -s
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " # Some executors
@@ -161,6 +163,8 @@ for opener in pandoc_executors:
 			vim.command("map <buffer><silent> " + mapping + "+" + \
 						" :" + opening_executor + "<cr>")
 EOF
+
+endif
 
 " While I'm at it, here are a few more functions mappings that are useful when
 " editing pandoc files.
