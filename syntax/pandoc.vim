@@ -222,8 +222,8 @@ hi link pandocPCite Label
 
 hi link pandocHRule		Underlined
 
-hi pandocEmphasis gui=italic cterm=italic
-hi pandocStrong gui=bold cterm=bold
+hi pandocEmphasis ctermfg=9 guifg=#FF80FF
+hi pandocStrong	 ctermfg=073 guifg=#72CCD8
 hi link pandocNoFormatted String
 hi link pandocSubscript Special
 hi link pandocSuperscript Special
